@@ -22,7 +22,7 @@ public class EmployeeController {
         if (employee==null){
             return new ResponseEntity<>("id not found, please try again!",HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+        return new ResponseEntity<>(employee,HttpStatus.OK);
     }
 
     @PostMapping("/api/employee")
@@ -32,7 +32,7 @@ public class EmployeeController {
             return new ResponseEntity<>("email existed, please try again! ", HttpStatus.FAILED_DEPENDENCY);
         }
         service.save(employee);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("create success fully!",HttpStatus.OK);
     }
 
     @PutMapping("/api/employee")
@@ -42,14 +42,14 @@ public class EmployeeController {
             return new ResponseEntity<>("email existed, please try again! ", HttpStatus.FAILED_DEPENDENCY);
         }
         service.save(employee);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("update success fully!",HttpStatus.OK);
     }
 
     @DeleteMapping("/api/employee/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable int id) {
         boolean check = service.deleteById(id);
         if (check) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("delete success fully!",HttpStatus.OK);
         } else {
             return new ResponseEntity<>("id not found, please try again! ", HttpStatus.NOT_FOUND);
         }
