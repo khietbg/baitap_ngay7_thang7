@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Service {
+public class EmployeeService {
     public static List<Employee> employeeList = new ArrayList<>();
 
     static {
@@ -45,6 +45,18 @@ public class Service {
             employeeList.remove(findById(id));
         }
         return true;
+    }
+
+    public boolean checkEmailUpdate(String email, int id) {
+        for (Employee e : employeeList) {
+            if (e.getEmail().equals(email)) {
+                if (e.getId() == id) {
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean checkEmail(String email) {

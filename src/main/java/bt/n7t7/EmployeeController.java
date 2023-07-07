@@ -1,21 +1,15 @@
 package bt.n7t7;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-@RestController
-public class controller {
-    public Service service = new Service();
 
-    @GetMapping("/welcome/index")
-    public ResponseEntity<?> welcome(@RequestParam("name") String name) {
-        return new ResponseEntity<>(name, HttpStatus.OK);
-    }
+@RestController
+public class EmployeeController {
+    public EmployeeService service = new EmployeeService();
+
 
     @GetMapping("/findAllEmployee")
     public ResponseEntity<?> findAll() {
@@ -35,7 +29,7 @@ public class controller {
 
     @PutMapping("/updateEmployee")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
-        boolean checkEmail = service.checkEmail(employee.getEmail());
+        boolean checkEmail = service.checkEmailUpdate(employee.getEmail(), employee.getId());
         if (checkEmail) {
             return new ResponseEntity<>("email existed, please try again! ", HttpStatus.FAILED_DEPENDENCY);
         }
