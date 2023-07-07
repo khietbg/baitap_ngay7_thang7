@@ -11,13 +11,21 @@ public class EmployeeController {
     public EmployeeService service = new EmployeeService();
 
 
-    @GetMapping("/findAllEmployee")
+    @GetMapping("/api/employee")
     public ResponseEntity<?> findAll() {
         List<Employee> employeeList = service.findAll();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
+    @GetMapping("/api/employee/{id}")
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        Employee employee = service.findById(id);
+        if (employee==null){
+            return new ResponseEntity<>("id not found, please try again!",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
 
-    @PostMapping("/createEmployee")
+    @PostMapping("/api/employee")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
         boolean checkEmail = service.checkEmail(employee.getEmail());
         if (checkEmail) {
@@ -27,7 +35,7 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/updateEmployee")
+    @PutMapping("/api/employee")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
         boolean checkEmail = service.checkEmailUpdate(employee.getEmail(), employee.getId());
         if (checkEmail) {
@@ -37,7 +45,7 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteEmployee/{id}")
+    @DeleteMapping("/api/employee/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable int id) {
         boolean check = service.deleteById(id);
         if (check) {
