@@ -37,9 +37,9 @@ public class EmployeeController {
 
     @PutMapping("/api/employee")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
-        boolean checkEmail = service.checkEmailUpdate(employee.getEmail(), employee.getId());
-        if (checkEmail) {
-            return new ResponseEntity<>("email existed, please try again! ", HttpStatus.FAILED_DEPENDENCY);
+        Employee employeeByEmail = service.findByEmail(employee.getEmail());
+        if (employeeByEmail != null && employeeByEmail.getId() != employee.getId()) {
+            return new ResponseEntity<>("email existed, please try again! ",HttpStatus.NOT_FOUND);
         }
         service.save(employee);
         return new ResponseEntity<>("update success fully!",HttpStatus.OK);

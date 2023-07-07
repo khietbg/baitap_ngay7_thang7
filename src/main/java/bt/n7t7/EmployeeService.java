@@ -47,16 +47,13 @@ public class EmployeeService {
         return true;
     }
 
-    public boolean checkEmailUpdate(String email, int id) {
+    public Employee findByEmail(String email) {
         for (Employee e : employeeList) {
             if (e.getEmail().equals(email)) {
-                if (e.getId() == id) {
-                    return false;
+              return e;
                 }
-                return true;
             }
-        }
-        return false;
+      return null;
     }
 
     public boolean checkEmail(String email) {
